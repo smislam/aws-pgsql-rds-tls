@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: Rdstls
+  profiles:
+    active: prod
