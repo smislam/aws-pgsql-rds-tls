@@ -21,5 +21,6 @@ This project is deployed using AWS CDK in TypeScript.
 * By default, the RDS databases are already SSL enabled. [See AWS Docs](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/PostgreSQL.Concepts.General.SSL.html).
 * JDBC client will connect to the server whether we have SSL enforced
 * Setting the JDBC connect parameters to SSL and require will enforce the client to use encrypted connection
-* I've used the `sslmode` to be `required`.  This is good since all our connections from our service to database is using Private Endpoints.  If you want to verify certificate exchange, you can set this to `verify-full` which will require additional configurations.  Current setup is good this use case.  You can read more about it in [PostgreSQL documentation](https://jdbc.postgresql.org/documentation/ssl/#configuring-the-client).  You can download the [AWS CA Certs](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html) for your use case.
-https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html).
+* I've used the `sslmode` to be `required`.  This is good since all our connections from our service to database is using Private Endpoints.  If you want to verify certificate exchange, you can set this to `verify-full` which will require additional configurations.  Current setup is good this use case.  You can read more about it in:
+  * [PostgreSQL documentation](https://jdbc.postgresql.org/documentation/ssl/#configuring-the-client)
+  * You can download the [AWS CA Certs](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html) for your use case
