@@ -1,6 +1,6 @@
 spring:
   datasource: 
-    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}?ssl=true&sslmode=require
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=verify-full&sslrootcert=/app/us-east-1-bundle.crt
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
   jpa:

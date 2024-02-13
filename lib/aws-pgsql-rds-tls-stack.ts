@@ -2,7 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import { InstanceClass, InstanceSize, InstanceType, InterfaceVpcEndpointAwsService, Vpc } from 'aws-cdk-lib/aws-ec2';
 import { Cluster, ContainerImage, FargateService, FargateTaskDefinition, LogDrivers, Secret as escSecret } from 'aws-cdk-lib/aws-ecs';
 import { ApplicationLoadBalancer, ApplicationProtocol } from 'aws-cdk-lib/aws-elasticloadbalancingv2';
-import { Credentials, DatabaseInstance, DatabaseInstanceEngine, PostgresEngineVersion } from 'aws-cdk-lib/aws-rds';
+import { CaCertificate, Credentials, DatabaseInstance, DatabaseInstanceEngine, PostgresEngineVersion } from 'aws-cdk-lib/aws-rds';
 import { Secret } from 'aws-cdk-lib/aws-secretsmanager';
 import { Construct } from 'constructs';
 
@@ -62,13 +62,15 @@ export class AwsPgsqlRdsTlsStack extends cdk.Stack {
       maxAllocatedStorage: 200,
       storageEncrypted: true,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
+      caCertificate: CaCertificate.RDS_CA_RDS4096_G1,
       //Since version 15, this is enabled by default.
       parameters: {
         'rds.force_ssl': '1'
       }
-    });   
+    });
 
     const cluster = new Cluster(this, 'Cluster', {vpc});
+    cluster.node.addDependency(dbInstance);
 
     const taskDefinition = new FargateTaskDefinition(this, 'my-task-def', {});
 
